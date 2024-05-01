@@ -1,0 +1,536 @@
+<div id="overlay" class="actives">
+    <div class="search" data-avoid>
+        <input type="text" placeholder="Search." data-trigger="search-box" data-event="focus" data-affect="search">
+        <div class="search-img">
+            <img src="/images/icons/search.png" alt="icon">
+        </div>
+    </div>
+    <div class="search-box" id="search-box">
+        <section>
+            <div class="section-head colored">
+                <div class="section-types">
+                    <div data-radio class="section-type active ">
+                        <p>all</p>
+                        <span data-resource-all>-</span>
+                    </div>
+                    <div data-radio class="section-type">
+                        <p>courses</p>
+                        <span data-resource-courses>-</span>
+                    </div>
+                    <div data-radio class="section-type">
+                        <p>slides</p>
+                        <span data-resource-slides>-</span>
+                    </div>
+                    <div data-radio class="section-type">
+                        <p>past questions</p>
+                        <span data-resource-pqs>-</span>
+                    </div>
+                </div>
+                <div class="section-format">
+                    <div class="section-type" data-close>
+                        <p>close</p>
+                    </div>
+                    <button class="stacks-active">
+                        <img src="/images/icons/row dark.png" alt="icon">
+                    </button>
+                    <button>
+                        <img src="/images/icons/grid dark.png" alt="icon">
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="item-box" id="course-box">
+        <div class="item-cont">
+            <div class="item-left">
+                <div class="overlay-heading">
+                    <h1 data-resource-code data-edit-code>-</h1>
+                    <p data-resource-name data-edit-name>-</p>
+                </div>
+                <div class="desc">
+                    <p data-resource-description data-edit-description>-</p>
+                </div>
+            </div>
+            <div class="item-right">
+                <div class="item-info">
+                    <div class="item-info-section">
+                        <h1>lecturers</h1>
+                        <div class="user-img-row">
+                            <img src="/images/avatars/avatar-5.png" alt="lecturer">
+                            <p>dada oluwaferanmi</p>
+                        </div>
+                        <div class="user-img-row">
+                            <img src="/images/avatars/avatar-8.png" alt="lecturer">
+                            <p>ajala fikayomi</p>
+                        </div>
+                    </div>
+                    <div class="line-hr"></div>
+                    <div class="item-info-section">
+                        <h1>actions</h1>
+                        <button>make a request</button>
+                        <% if (data.user.role == 'admin') { %>
+                            <button data-edit-btn>edit</button>
+                        <% } %>
+                        <button data-close>close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box" id="resource">
+        <div class="item-cont">
+            <div class="item-left">
+                <div class="overlay-heading">
+                    <h1 data-resource-joinedName data-edit-joinedName>-</h1>
+                    <p>from: <span class="highlight" data-trigger="course-box" data-resource-code>-</span></p>
+                </div>
+                <div class="desc">
+                    <p data-resource-description data-edit-description>-</p>
+                </div>
+            </div>
+            <div class="item-right">
+                <div class="item-info">
+                    <div class="item-info-section">
+                        <h1>resource information</h1>
+                        <div class="flex-btwn">
+                            <p>type</p>
+                            <p data-resource-type>-</p>
+                        </div>
+                        <div class="flex-btwn">
+                            <p>views</p>
+                            <p data-resource-views>-</p>
+                        </div>
+                        <div class="flex-btwn">
+                            <p>added</p>
+                            <p data-resource-added>-</p>
+                        </div>
+                        <div class="flex-btwn">
+                            <p>updated</p>
+                            <p data-resource-updated>-</p>
+                        </div>
+                    </div>
+                    <div class="line-hr"></div>
+                    <div class="item-info-section">
+                        <h1>actions</h1>
+                        <a href="" target="_blank" class="form-active" data-resource-read>read</a>
+                        <button data-share>share</button>
+                        <% if (data.user.role == 'student') { %>
+                            <button data-collection>add to collection</button>
+                        <% } %>
+                        <% if (data.user.role == 'lecturer') { %>
+                            <button data-edit-btn>edit</button>
+                            <button data-delete-btn>delete</button>
+                        <% } %>
+                        <button data-close>close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="add-to-collection-box">
+            <div class="add-to-collection-cont">
+                <div class="add-to-collection-section">
+                    <h1>Add to collection</h1>
+                    <form action="/add-to-collection" method="post" class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="collection_name" id="collection_name" placeholder="Create a new collection">
+                            <input type="hidden" name="resource_id">
+                        </div>
+                        <button type="submit" class="stacks-active">Create</button>
+                    </form>
+                </div>
+                <div class="line-hr"></div>
+                <div class="add-to-collection-section">
+                    <h1>Use an existing collection</h1>
+                    <div class="existing-collections">
+                        <div class="collection empty"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box" id="collection">
+        <div class="item-cont">
+            <div class="item-left">
+                <div class="overlay-heading">
+                    <h1 class="no-cap" data-resource-name data-edit-collection_name>-</h1>
+                </div>
+                <div class="desc">
+                    <p data-resource-description data-edit-description>-</p>
+                </div>
+            </div>
+            <div class="item-right">
+                <div class="item-info">
+                    <div class="item-info-section">
+                        <h1>collection information</h1>
+                        <div class="flex-btwn">
+                            <p>slides</p>
+                            <p data-resource-slides>-</p>
+                        </div>
+                        <div class="flex-btwn">
+                            <p>past questions</p>
+                            <p data-resource-pqs>-</p>
+                        </div>
+                    </div>
+                    <div class="line-hr"></div>
+                    <div class="item-info-section">
+                        <h1>owner</h1>
+                        <div data-trigger="user" data-identifier=<%= data.user.id %> class="user-img-row">
+                            <img src="/images/avatars/<%= data.user.pfp %>" alt="owner">
+                            <p><%= data.user.name %></p>
+                        </div>
+                    </div>
+                    <div class="line-hr"></div>
+                    <div class="item-info-section">
+                        <h1>actions</h1>
+                        <button data-share>share</button>
+                        <button>make a request</button>
+                        <% if (data.user.role == 'student') { %>
+                            <button data-edit-btn>edit</button>
+                            <button data-delete-btn>delete</button>
+                        <% } %>
+                        <button data-close>close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item-box" id="add-resource">
+        <div class="item-form">
+            <div class="overlay-heading">
+                <h1 class="no-cap">Add a new resource</h1>
+            </div>
+            <form class="form-grid" action="/add-resource" id="add-resource-form">
+                <div class="form-group" data-module-year>
+                    <label for="module">module</label>
+                    <input type="number" name="module" id="module" value="0" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="name">resource name</label>
+                    <input type="text" name="name" id="name" placeholder="Enter resource name">
+                </div>
+                <div class="form-group">
+                    <label for="course_id">select course</label>
+                    <select name="course_id" id="course_id" data-module-select>
+                        <option value="" selected>Select course</option>
+                        <% data.lecturerCourses.forEach(course=> { %>
+                            <option value=<%=course.id %>><%= course.code %>: <%= course.name %>
+                            </option>
+                            <% }) %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="type">resource type</label>
+                    <select name="type" id="type" data-type-select>
+                        <option value="">Select resource type</option>
+                        <option value="slide" selected>slide</option>
+                        <option value="past question">past question</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">resource description</label>
+                    <textarea name="description" id="description" cols="30" rows="10"
+                        placeholder="Enter resource description here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="pdfFile">upload resource</label>
+                    <div class="form-file">
+                        <label for="pdfFile" data-preview="pdfFile" <% if (data.previewRoute) { %> class="none" <% } %>>
+                                <% if (data.previewRoute) { %>
+                                    <iframe src=<%=data.previewRoute %> width="100%" height="100%"></iframe>
+                                    <% } %>
+                                        <img src="/images/others/file.jpg" alt="file">
+                        </label>
+                        <div class="form-file-info">
+                            <div class="form-file-name">
+                                <img src="/images/icons/file.png" alt="file">
+                                <div class="form-file-name-ext">
+                                    <span data-form-filename>filename</span>
+                                    <span>.pdf</span>
+                                </div>
+                            </div>
+                            <div class="form-file-progress-box">
+                                <div class="form-file-progress">
+                                    <div class="form-file-progress-bar"></div>
+                                </div>
+                            </div>
+                            <div class="form-file-cancel">
+                                <button type="button" data-target="pdfFile">
+                                    <img src="/images/icons/cancel.png" alt="file">
+                                </button>
+                            </div>
+                        </div>
+                        <input type="file" name="pdfFile" id="pdfFile" accept=".pdf">
+                    </div>
+                </div>
+            </form>
+            <div class="form-cta">
+                <button data-close>close</button>
+                <button type="submit" form="add-resource-form">submit</button>
+            </div>
+        </div>
+    </div>
+    <div class="item-box" id="add-user">
+        <div class="item-form">
+            <div class="overlay-heading">
+                <h1 class="no-cap">Add a new user</h1>
+            </div>
+            <form class="form-grid" action="/add-user" id="add-user-form" data-request-parent>
+                <div class="form-group">
+                    <label for="id">ID</label>
+                    <input type="text" name="id" id="id" placeholder="Enter user ID">
+                </div>
+                <div class="form-group">
+                    <label for="name">full name</label>
+                    <input type="text" name="name" id="name" placeholder="Enter user fullname">
+                </div>
+                <div class="form-group">
+                    <label for="email">email</label>
+                    <input type="text" name="email" id="email" placeholder="Enter user email">
+                </div>
+                <div class="form-group">
+                    <label for="password">password</label>
+                    <input type="text" name="password" id="password" placeholder="Enter user password">
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">phone number</label>
+                    <input type="text" name="phone_number" id="phone_number" placeholder="Enter user phone number">
+                </div>
+                <div class="form-group" data-request-select>
+                    <label for="department_id">department</label>
+                    <select name="department_id" id="department_id">
+                        <option value="" selected>Select department</option>
+                        <% data.allDepartments.forEach(department=> { %>
+                            <option value=<%=department.id %>><%= department.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="form-group" data-request-select>
+                    <label for="role">role</label>
+                    <select name="role" id="role" onchange="test(this)" data-avoid-randomizer>
+                        <option value="" selected>Select user role</option>
+                        <% data.allRoles.forEach(role=> { %>
+                            <option value=<%=role.role %>><%= role.role %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="form-group" data-request="lecturer" data-request-triggerable>
+                    <label for="course_id">assign lecturers course</label>
+                    <select name="course_id" id="course_id" disabled>
+                        <option value="" selected>Select lecturers course</option>
+                        <% data.allCourses.forEach(course => { %>
+                            <option value=<%= course.id %>><%= course.code %>: <%= course.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </form>
+            <div class="form-cta">
+                <button data-random="add-user-form">randomize</button>
+                <button data-close>close</button>
+                <button type="submit" form="add-user-form">submit</button>
+            </div>
+        </div>
+    </div>
+    <div class="item-box" id="request">
+        <div class="request-box" data-access>
+            <div class="request-info">
+                <div class="heading">
+                    <div class="type">
+                        <p data-resource-type>-</p>
+                    </div>
+                    <div class="section-type" data-close>
+                        <p>close</p>
+                    </div>
+                </div>
+                <div class="request-cont">
+                    <div class="title">
+                        <h1 data-resource-title>-</h1>
+                    </div>
+                    <div class="message">
+                        <p data-resource-message></p>
+                    </div>
+                </div>
+                <div class="request-extra">
+                    <p class="cap">extra info:</p>
+                    <div class="request-text">
+                        <p data-resource-sender_id></p>
+                        <p data-resource-extra_info></p>
+                    </div>
+                </div>
+                <div class="line-hr"></div>
+                <div class="request-handled">
+                    <i data-resource-handled_by></i>
+                </div>
+                <div class="request-btns" data-request-cta>
+                    <button>decline</button>
+                    <button>accept</button>
+                </div>
+            </div>
+            <div class="request-cta-box">
+                <form class="request-cta">
+                    <input type="hidden" name="request_id" id="request-id">
+                    <div class="request-inputs" data-request-inputs></div>
+                    <div class="request-btns">
+                        <button data-request-back type="button">back</button>
+                        <button type="submit">confirm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="item-box" id="user">
+        <div class="item-cont">
+            <div class="item-left">
+                <div class="overlay-heading">
+                    <h1 data-resource-name data-edit-name>-</h1>
+                </div>
+            </div>
+            <div class="item-right">
+                <div class="item-info">
+                    <div class="item-info-section">
+                        <h1>actions</h1>
+                        <button data-edit-btn>Edit</button>
+                        <button data-delete-btn>Delete</button>
+                        <button data-close>close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hidden" id="hidden">
+        <div id="message">
+            <div class="form-group">
+                <label for="message">message</label>
+                <textarea name="message" id="message" cols="30" rows="3"
+                    placeholder="Enter response here..."></textarea>
+            </div>
+        </div>
+        <div id="select">
+            <div class="form-group" data-request-select>
+                <label for="role">assign user role</label>
+                <select name="role" id="role" onchange="test(this)">
+                    <option value="" selected>Select user role</option>
+                    <option value="student">student</option>
+                    <option value="lecturer">lecturer</option>
+                </select>
+            </div>
+            <div class="form-group" data-request="student">
+                <label for="department_id">assign department</label>
+                <select name="department_id" id="department_id" disabled>
+                    <option value="" selected>Select user department</option>
+                    <option value="1">software engineering</option>
+                    <option value="2">computer science</option>
+                </select>
+            </div>
+            <div class="form-group" data-request="lecturer">
+                <label for="course_id">assign lecturers course</label>
+                <select name="course_id" id="course_id" disabled>
+                    <option value="" selected>Select lecturers course</option>
+                    <% data.allCourses.forEach(course => { %>
+                        <option value=<%= course.id %>><%= course.code %>: <%= course.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+        <div data-edit-trigger="resource">
+            <div class="form-group">
+                <label>resource name</label>
+                <input type="text" name="name" placeholder="Enter resource name">
+            </div>
+            <div class="form-group">
+                <label>resource description</label>
+                <textarea name="description" cols="30" rows="3"
+                    placeholder="Enter resource description here..."></textarea>
+            </div>
+        </div>
+        <div data-edit-trigger="course-box">
+            <div class="form-group">
+                <label>course code</label>
+                <input type="text" name="code" placeholder="Enter course code" maxlength="8">
+            </div>
+            <div class="form-group">
+                <label>course name</label>
+                <input type="text" name="name" placeholder="Enter course name">
+            </div>
+            <div class="form-group">
+                <label>course description</label>
+                <textarea name="description" cols="30" rows="3"
+                    placeholder="Enter resource description here..."></textarea>
+            </div>
+        </div>
+        <div data-edit-trigger="collection">
+            <div class="form-group">
+                <label>collection name</label>
+                <input type="text" name="collection_name" placeholder="Enter collection name">
+            </div>
+            <div class="form-group">
+                <label>collection description</label>
+                <textarea name="description" cols="30" rows="3"
+                    placeholder="Enter resource description here..."></textarea>
+            </div>
+        </div>
+        <div data-edit-trigger="user">
+            <div class="form-group">
+                <label>fullname</label>
+                <input type="text" name="name" placeholder="Enter fullname">
+            </div>
+            <div class="form-group">
+                <label>phone number</label>
+                <input type="text" name="phone_number" placeholder="Enter phone number">
+            </div>
+        </div>
+    </div>
+</div>
+<div id="delete-overlay">
+    <div class="pop-up-cont">
+        <div class="pop-up-section">
+            <h1>Are you sure you want to delete this content?</h1>
+            <form action="/delete" method="post">
+                <input type="hidden" name="id">
+                <input type="hidden" name="type">
+                <div class="form-row">
+                    <button data-delete-no type="button">no</button>
+                    <button data-delete-yes type="submit">yes</button>
+                </div>
+            </form>
+            <span class="delete-warning">This data will no longer be available to access if deleted.</span>
+        </div>
+    </div>
+</div>
+<div id="edit-overlay">
+    <div class="pop-up-cont">
+        <form action="/edit" class="pop-up-section edit" method="post">
+            <input type="hidden" name="id">
+            <input type="hidden" name="type">
+            <div class="form-row">
+                <button data-edit-cancel type="button">cancel</button>
+                <button data-edit-update type="submit">update</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="sidebar-overlay">
+    <div class="sidebar-cont">
+        <div class="sidebar-section">
+            <div class="acc-box">
+                <img src="/images/avatars/<%= data.user.pfp %>" alt="pfp">
+                <div class="text">
+                    <p><%= data.user.name %></p>
+                    <span class="sub"><%= data.user.email %></span>
+                </div>
+            </div>
+        </div>
+        <div class="line-hr"></div>
+        <div class="sidebar-section">
+            <div class="links">
+                <div data-trigger="user" data-identifier="<%= data.user.id %>" class="link">
+                    <img src="/images/icons/request dark.png" alt="icon">
+                    <p>View profile</p>
+                </div>
+                <a href="/logout" class="link">
+                    <img src="/images/icons/logout dark.png" alt="icon">
+                    <p>logout</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

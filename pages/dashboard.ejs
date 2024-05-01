@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Stacks</title>
+
+    <%- include('partials/head') %>
+        <link rel="stylesheet" href="/lib/swiper/swiper-bundle.min.css" />
+</head>
+
+<body>
+
+    <%- include('partials/alert') %>
+    <%- include('partials/overlay') %>
+        <div class="container">
+            <%- include('partials/sidebar') %>
+                <div class="content">
+                    <%- include('partials/navbar') %>
+                        <main class="main-content flex-col">
+                            <div class="content-head">
+                                <h1>dashboard</h1>
+                            </div>
+                            <% if (courses.length) { %>
+                                <section>
+                                    <div class="section-head">
+                                        <div class="section-info">
+                                            <p><%= heading %></p>
+                                            <div class="line"></div>
+                                            <div class="user-img flex">
+                                                <img src="/images/avatars/<%= pfp %>" alt="lecturer">
+                                            </div>
+                                        </div>
+                                        <div class="section-format">
+                                            <div class="line"></div>
+                                            <button class="slide stacks-active">
+                                                <img src="/images/icons/row dark.png" alt="icon">
+                                            </button>
+                                            <button>
+                                                <img src="/images/icons/row dark.png" alt="icon">
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="section-slider">
+                                        <div class="swiper">
+                                            <div class="swiper-wrapper">
+                                                <% courses.forEach(course=> { %>
+                                                    <div class="swiper-slide item" data-course data-trigger="course-box" data-identifier=<%= course.id %>>
+                                                        <div class="heading">
+                                                            <div class="type">
+                                                                <p>course</p>
+                                                            </div>
+                                                            <div class="more">
+                                                                <img src="/images/icons/more.png" alt="more">
+                                                            </div>
+                                                        </div>
+                                                        <div class="cont">
+                                                            <p>
+                                                                <%= course.code %>
+                                                            </p>
+                                                            <span>
+                                                                <%= course.name %>
+                                                            </span>
+                                                        </div>
+                                                        <div class="line-hr"></div>
+                                                        <div class="user-img flex">
+                                                            <img src="/images/avatars/<%= pfp %>" alt="lecturer">
+                                                        </div>
+                                                    </div>
+                                                    <% }) %>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-pagination"></div>
+                                    </div>
+                                </section>
+                            <% } %>
+                            <% if (recentlyAdded.length) { %>
+                                <section>
+                                    <div class="section-head">
+                                        <div class="section-info">
+                                            <p>recently added</p>
+                                            <div class="line"></div>
+                                            <div class="user-img flex">
+                                                <img src="/images/avatars/avatar-6.png" alt="lecturer">
+                                            </div>
+                                        </div>
+                                        <div class="section-format">
+                                            <div class="line"></div>
+                                            <button class="stacks-active">
+                                                <img src="/images/icons/row dark.png" alt="icon">
+                                            </button>
+                                            <button>
+                                                <img src="/images/icons/grid dark.png" alt="icon">
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="section-table">
+                                        <table>
+                                            <colgroup>
+                                                <col style="width: 100px;">
+                                                <col style="width: 140px;">
+                                                <col>
+                                                <col style="width: 140px;">
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <th>code</th>
+                                                    <th>type</th>
+                                                    <th>name</th>
+                                                    <th>date added</th>
+                                                </tr>
+                                                <% recentlyAdded.forEach(resource => { %>
+                                                    <tr data-trigger="resource" data-identifier=<%= resource.id %>>
+                                                        <td><%= resource.code %></td>
+                                                        <td><%= resource.type %></td>
+                                                        <td><p><%= resource.name %></p></td>
+                                                        <td><%= resource.last_visited %></td>
+                                                    </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </section>
+                            <% } %>
+                            <% if (!courses.length && !recentlyAdded.length) { %>
+                                <section>
+                                    <div class="section-empty">
+                                        <p>No information available</p>
+                                    </div>
+                                </section>
+                            <% } %>
+                        </main>
+                </div>
+        </div>
+
+        <%- include('partials/foot') %>
+            <script type="module">
+                import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+
+                const swiper = new Swiper('.swiper', {
+                    slidesPerView: "auto",
+                    spaceBetween: 30,
+                    grabCursor: true,
+                    autoplay: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        // dynamicBullets: true,
+                        clickable: true,
+                    },
+                });
+            </script>
+
+</body>
+
+</html>

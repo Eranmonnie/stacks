@@ -1,0 +1,93 @@
+<nav class="sidebar flex-col">
+    <div class="top flex-col">
+        <div class="part">
+            <div class="logo">
+                <img src="/images/icons/logo dark.png" alt="icon">
+                <h1>Stacks</h1>
+            </div>
+            <div>
+                <span class="role" data-role-<%= data.user.role %>><%= data.user.role %></span>
+            </div>
+        </div>
+        <div class="part flex-col">
+            <div class="cont flex-col">
+                <p class="sub">menu</p>
+                <div class="links flex-col">
+                    <a href="/dashboard" class="link">
+                        <img src="/images/icons/dashboard-interface dark.png" alt="icon">
+                        <p>dashboard</p>
+                    </a>
+                    <% if (data.user.role == 'student') { %>
+                        <a href="/collections" class="link">
+                            <img src="/images/icons/collection.png" alt="icon">
+                            <p>collections</p>
+                        </a>
+                    <% } %>
+                    <% if (data.user.role == 'lecturer') { %>
+                        <a href="/resources/" class="link">
+                            <img src="/images/icons/material.png" alt="icon">
+                            <p>resources</p>
+                        </a>
+                    <% } %>
+                    <% if (data.user.role == 'admin') { %>
+                        <a href="/manage-users" class="link">
+                            <img src="/images/icons/manage users.png" alt="icon">
+                            <p>manage users</p>
+                        </a>
+                    <% } %>
+                    <a href="/history" class="link">
+                        <img src="/images/icons/history.png" alt="icon">
+                        <p>history</p>
+                    </a>
+                </div>
+            </div>
+            <div class="cont flex-col">
+                <p class="sub">inbox</p>
+                <div class="links flex-col">
+                    <% if (data.user.role == "lecturer" || data.user.role == "admin") { %>
+                        <a href="/requests" class="link">
+                            <img src="/images/icons/users dark.png" alt="icon">
+                            <p>requests</p>
+                        </a>
+                    <% } %>
+                    <a href="/notice-board" class="link">
+                        <img src="/images/icons/notice.png" alt="icon">
+                        <p>notice board</p>
+                    </a>
+                </div>
+            </div>
+            <!-- <div class="cont flex-col">
+                <p class="sub">friends</p>
+                <div class="friends flex-col">
+                    <div class="friend">
+                        <img src="/images/avatars/avatar-1.png" alt="friend">
+                        <p>emmanuel adeboye</p>
+                    </div>
+                    <div class="friend">
+                        <img src="/images/avatars/avatar-2.png" alt="friend">
+                        <p>baiyere fikayomi</p>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="part" data-sidebar-btn>
+            <div class="acc">
+                <div class="acc-box">
+                    <img src="/images/avatars/<%= data.user.pfp %>" alt="pfp">
+                    <div class="text">
+                        <p><%= data.user.name %></p>
+                        <span class="sub"><%= data.user.email %></span>
+                    </div>
+                </div>
+                <div class="cta">
+                    <img src="/images/icons/next dark.png" alt="icon">
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="toggle-sidebar" data-sidebar-toggle>
+        <div class="toggle-sidebar-icon"></div>
+    </button>
+</nav>
