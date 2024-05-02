@@ -28,7 +28,7 @@ server.use(express.json());
 server.use(session(sess));
 
 //Serving static files
-server.use(express.static(path.join(__dirname, 'assets')));
+server.use(express.static(path.join(__dirname, 'views')));
 server.use(express.static(path.join(__dirname, 'uploads')));
 
 //Setup file upload
