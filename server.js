@@ -35,7 +35,7 @@ server.use(express.static(path.join(__dirname, 'uploads')));
 server.use(fileUpload());
 
 //Setup ejs
-server.set('views', 'pages');
+server.set('views', './pages');
 server.set('view engine', 'ejs');
 
 server.use(mainRoutes);
