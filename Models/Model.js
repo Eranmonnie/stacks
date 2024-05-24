@@ -1,5 +1,4 @@
-const connection = require('./connection');
-const conn = connection.promise();
+const pool = require('./connection');
 const pluralize = require("pluralize");
 
 class Model {
@@ -11,19 +10,12 @@ class Model {
     static get tableName() {
         let name = this.name;
 
-        // Replace uppercase letters with underscore + lowercase
         name = name.replace(/[A-Z]/g, (m) => `_${m.toLowerCase()}`);
 
-        // Split the name into an array of words
         let words = name.split('_');
-
-        // Pluralize each word
         words = words.map(word => pluralize(word));
-
-        // Join the words back together
         let pluralizedName = words.join('_');
 
-        // Remove leading underscore, if any
         return pluralizedName.replace(/^_/, '').toLowerCase();
     }
 
@@ -37,52 +29,40 @@ class Model {
         try {
             if (filters.length) {
                 if (Array.isArray(filters[0])) {
-                    //Check if filters includes OR
                     let includesOr = filters.some(([p]) => p.toLowerCase() === 'or');
                     let includesLike = filters.some(([p]) => p.toLowerCase() === 'like');
-                    //Assign the operator (OR/AND)
                     let operator = (includesOr) ? "OR" : "AND";
                     let separator = (includesLike) ? "LIKE" : "=";
 
-                    //Check if filters contains order by
                     if (filters.map(item => item[0].toLowerCase()).includes("order by")) {
                         let orderByIndex = filters.findIndex(item => item[0].toLowerCase() === "order by");
                         operators.push(filters[orderByIndex]);
                         filters.splice(orderByIndex, 1);
                     }
-                    //Checks if filters contains limit
                     if (filters.map(item => item[0].toLowerCase()).includes("limit")) {
                         let limitIndex = filters.findIndex(item => item[0].toLowerCase() === "limit");
                         operators.push(filters[limitIndex]);
                         filters.splice(limitIndex, 1);
                     }
-                    //Checks if filters contains offset
                     if (filters.map(item => item[0].toLowerCase()).includes("offset")) {
                         let offsetIndex = filters.findIndex(item => item[0].toLowerCase() === "offset");
                         operators.push(filters[offsetIndex]);
                         filters.splice(offsetIndex, 1);
                     }
 
-                    //Filter out the parameters and the values of arrays that have 2 values
                     params = filters.filter(([p, v]) => v !== undefined && v !== null && v !== '').map(([p, v]) => p);
                     val = filters.filter(([p, v]) => v !== undefined && v !== null && v !== '').map(([p, v]) => v);
 
-                    //Pass the extra operators into a string (Order By, Limit, Offset)
                     let operatorsString = operators.map(op => op.join(' ')).join(' ');
 
-                    //Insert the value for clause, basically WHERE clause
                     let clause = "";
-
-                    //Add "where" in case there are still parameters after the operators have been removed
                     if (params.length) clause += ` WHERE`;
                     for (let i = 0; i < params.length; i++) {
                         clause += ` ${params[i]} ${separator} ? ${operator}`;
                     }
 
-                    //Remove the last (and/or)
                     clause = clause.replace(/ (AND|OR)$/, '');
 
-                    //Finally put the parts of the sql together
                     sql += `${clause} ${operatorsString}`;
                 } else {
                     params.push(filters[0]);
@@ -168,25 +148,31 @@ class Model {
             await this.query(sql, [id]);
         } catch (error) {
             console.error(`Error deleting record with id ${id}:`, error);
-            throw error;  // Rethrow the error to signal the failure
+            throw error;
         }
     }
 
     static async customSql(sql, val = '') {
         try {
             const rows = await this.query(sql, val);
-
             return (Array.isArray(rows)) ? rows?.map(row => new this(row)) : rows.affectedRows;
         } catch (error) {
             console.error(`Error executing custom SQL query:`, error);
-            throw error;  // Rethrow the error to signal the failure
+            throw error;
         }
     }
 
     static async query(sql, params = []) {
-        if (sql) {
-            let [results] = await conn.execute(sql, params);
+        let connection;
+        try {
+            connection = await pool.getConnection();
+            const [results] = await connection.execute(sql, params);
             return results;
+        } catch (error) {
+            console.error('Error executing query:', error);
+            throw error;
+        } finally {
+            if (connection) connection.release();
         }
     }
 }
